@@ -1,0 +1,9 @@
+#!/bin/bash
+HUBOT_IRC_SERVER="weirdmeetup.irc.slack.com" \
+HUBOT_IRC_ROOMS="" \
+HUBOT_IRC_NICK="koalabot" \
+HUBOT_IRC_PASSWORD="" \
+HUBOT_IRC_NICKSERV_PASSWORD="" \
+HUBOT_IRC_UNFLOOD="false" \
+HUBOT_IRC_USESSL=1
+bin/hubot -a irc --name koalabot
