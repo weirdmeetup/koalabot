@@ -3,23 +3,22 @@ async = require('async')
 GoogleSpreadsheet = require("google-spreadsheet")
 
 getConfig = ->
-  {
-    'type': process.env.GOOGLE_DOCS_TYPE
-    'sheet_id': process.env.GOOGLE_DOCS_SHEET_ID
-    'project_id': process.env.GOOGLE_DOCS_PROJECT_ID
-    'private_key_id': process.env.GOOGLE_DOCS_PRIVATE_KEY_ID
-    'private_key': process.env.GOOGLE_DOCS_PRIVATE_KEY.replace(/\\n/gi,"\n")
-    'client_email': process.env.GOOGLE_DOCS_CLIENT_EMAIL
-    'client_id': process.env.GOOGLE_DOCS_CLIENT_ID
-    'auth_uri': process.env.GOOGLE_DOCS_AUTH_URI
-    'token_uri': process.env.GOOGLE_DOCS_TOKEN_URI
-    'auth_provider_x509_cert_url': process.env.GOOGLE_DOCS_AUTH_PROVIDER_X509_CERT_URL
-    'client_x509_cert_url': process.env.GOOGLE_DOCS_CLIENT_X509_CERT_URL
-  }
-
-creds = getConfig()
-doc = new GoogleSpreadsheet(creds.sheet_id)
-
+  if !process.env.GOOGLE_DOCS_SHEET_ID:
+    return false
+  else:
+    return {
+      'type': process.env.GOOGLE_DOCS_TYPE
+      'sheet_id': process.env.GOOGLE_DOCS_SHEET_ID
+      'project_id': process.env.GOOGLE_DOCS_PROJECT_ID
+      'private_key_id': process.env.GOOGLE_DOCS_PRIVATE_KEY_ID
+      'private_key': process.env.GOOGLE_DOCS_PRIVATE_KEY.replace(/\\n/gi,"\n")
+      'client_email': process.env.GOOGLE_DOCS_CLIENT_EMAIL
+      'client_id': process.env.GOOGLE_DOCS_CLIENT_ID
+      'auth_uri': process.env.GOOGLE_DOCS_AUTH_URI
+      'token_uri': process.env.GOOGLE_DOCS_TOKEN_URI
+      'auth_provider_x509_cert_url': process.env.GOOGLE_DOCS_AUTH_PROVIDER_X509_CERT_URL
+      'client_x509_cert_url': process.env.GOOGLE_DOCS_CLIENT_X509_CERT_URL
+    }
 
 Config = {}
 QnA = []
@@ -104,7 +103,15 @@ addHistory = (username, question, answered, correct) ->
       return
 
 module.exports = (robot) ->
+  creds = getConfig()
+
+  if !creds
+    return robot.logger.info "QUIZ Envrionment Variables are missing"
+
+  doc = new GoogleSpreadsheet(creds.sheet_id)
+
   load()
+
   users = []
   robot.respond /.+/gi, (msg) ->
     sender = msg.message.user.name.toLowerCase()
