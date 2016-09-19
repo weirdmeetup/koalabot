@@ -20,6 +20,9 @@ getConfig = ->
       'client_x509_cert_url': process.env.GOOGLE_DOCS_CLIENT_X509_CERT_URL
     }
 
+creds = null
+doc = null
+
 Config = {}
 QnA = []
 History = {}
