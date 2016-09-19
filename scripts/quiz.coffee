@@ -3,9 +3,9 @@ async = require('async')
 GoogleSpreadsheet = require("google-spreadsheet")
 
 getConfig = ->
-  if !process.env.GOOGLE_DOCS_SHEET_ID:
+  if !process.env.GOOGLE_DOCS_SHEET_ID
     return false
-  else:
+  else
     return {
       'type': process.env.GOOGLE_DOCS_TYPE
       'sheet_id': process.env.GOOGLE_DOCS_SHEET_ID
