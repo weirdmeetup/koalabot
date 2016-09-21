@@ -32,26 +32,24 @@ initialGoogleSheet = (step) ->
 
 loadWorksheets = (step) ->
   doc.getInfo (err, info) ->
-    if err is not null
-      return step err
     placeSheet = info.worksheets[0]
     logSheet = info.worksheets[1]
     step()
 
 loadPlaceInfo = (step) ->
-  placeSheet.getCells {'min-row': 5}, (err, cells) ->
-    if err is not null
-      return step err
-    fields = ['', 'ip', 'name', 'cron_token', 'last_updated', 'username']
-    row = null
-    for cell in cells
-      if cell.col is 1
-        row = {}
-      label = fields[cell.col]
-      row[label] = cell.value
-      if cell.col is fields.length - 1
-        places[row.ip] = row
-    step()
+  placeSheet.getRows {
+      offset: 1
+      orderby: 'ip'
+    }, (err, rows) ->
+      for row in rows
+        places[row.ip] = {
+          'ip': row.ip
+          'name': row.name
+          'crontoken': row.crontoken
+          'lastupdated': row.lastupdated
+          'username': row.username
+        }
+      step()
 
 loadDb = (end, error) ->
   q = [initialGoogleSheet, loadWorksheets, loadPlaceInfo]
