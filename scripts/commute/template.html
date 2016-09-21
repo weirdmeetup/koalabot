@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>🐨 출퇴근</title>
+<style>
+body {
+  margin: 20px;
+}
+
+input, button {
+  -webkit-appearance: none;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 5px;
+  border: 1px solid;
+}
+
+input {
+  border-color: #ddd;
+}
+
+button {
+  background: #0eb570;
+  border-color: #0eb570;
+  color: #fff;
+}
+</style>
+</head>
+<body>
+  <p><%= message %></p>
+  <% if (typeof(is_form) !== "undefined") { %>
+  <form method="post">
+    <input name="place" id="place" type="text" placeholder="장소 이름을 적어주세요.">
+    <button type="submit">장소 등록하기</button>
+  </form>
+  <script>document.getElementById('place').focus()</script>
+  <% } %>
+</body>
+</html>
