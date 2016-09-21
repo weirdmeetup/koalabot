@@ -112,6 +112,8 @@ commute = (req, res) ->
   q = queue[token]
   msg = q.msg
   type = q.type
+  envelope_room = q.envelope_room
+  user_room = q.user_room
 
   userAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   username = msg.message.user.name
@@ -122,6 +124,13 @@ commute = (req, res) ->
   addLog places[userAddress].name, userAddress, username, type
 
   message = "🐨 #{username}님이 #{places[userAddress].name}에 #{type}근 도장을 찍었습니다."
+
+  if envelope_room and msg?.envelope
+    msg.envelope.room = envelope_room
+
+  if user_room and msg.envelope?.user
+    msg.envelope.user.room = user_room
+
   msg.send message
   delete queue[token]
 
@@ -167,6 +176,13 @@ commuteConfirm = (type) ->
     queue[token] = {msg: msg, type: type}
     message = "🐨 #{type}근 도장을 찍으세요. #{COMMUTE_URI}#{token}"
     if msg.sendPrivate
+
+      envelope_room = msg.envelope.room
+      user_room = msg.envelope.user.room
+
+      queue[token].envelope_room = envelope_room
+      queue[token].user_room = user_room
+
       msg.sendPrivate message
     else
       msg.send message
