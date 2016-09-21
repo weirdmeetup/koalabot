@@ -123,7 +123,7 @@ commute = (req, res) ->
 
   addLog places[userAddress].name, userAddress, username, type
 
-  message = "#{username}님이 #{places[userAddress].name}에 #{type}근 도장을 찍었습니다"
+  message = "🐨 #{username}님이 #{places[userAddress].name}에 #{type}근 도장을 찍었습니다."
   msg.send message
   delete queue[token]
 
@@ -140,7 +140,7 @@ firstTimeCommute = (req, res) ->
 
   if !req.body || !req.body.place
     res.send render {
-      message: '첫 출근 도장을 찍으셨네요. 출근한 위치가 어디인지 기록해주세요.'
+      message: '🐨 첫 출근 도장을 찍으셨네요. 출근한 위치가 어디인지 기록해주세요.'
       is_form: true
     }
   else
@@ -167,7 +167,7 @@ commuteConfirm = (type) ->
   return (msg) ->
     token = generateToken()
     queue[token] = {msg: msg, type: type}
-    message = "#{type}근 도장을 찍으세요. 🐨 #{COMMUTE_URI}#{token}"
+    message = "🐨 #{type}근 도장을 찍으세요. #{COMMUTE_URI}#{token}"
     if msg.sendPrivate
       msg.sendPrivate message
     else
@@ -175,7 +175,7 @@ commuteConfirm = (type) ->
     setTimeout () ->
       if queue[token]
         delete queue[token]
-        timeover = "#{msg.message.user.name}님 도장 찍기 제한 시간을 초과했습니다. 🐨"
+        timeover = "🐨 #{msg.message.user.name}님 도장 찍기 제한 시간을 초과했습니다."
 
         if msg.sendPrivate
           msg.sendPrivate timeover
