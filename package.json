@@ -4,28 +4,28 @@
   "private": true,
   "author": "haruair <onward.edkim@gmail.com>",
   "description": "A simple helpful koala",
+  "engines": {
+    "node": "6"
+  },
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "google-spreadsheet": "^2.0.1",
     "hubot": "^2.11.0",
     "hubot-diagnostics": "0.0.1",
-    "hubot-google-images": "^0.1.2",
-    "hubot-google-translate": "^0.1.0",
-    "hubot-help": "^0.1.1",
-    "hubot-heroku-keepalive": "0.0.4",
+    "hubot-google-images": "^0.2.6",
+    "hubot-google-translate": "^0.2.0",
+    "hubot-help": "0.2.0",
+    "hubot-heroku-keepalive": "1.0.2",
     "hubot-irc": "^0.2.7",
-    "hubot-maps": "0.0.1",
+    "hubot-maps": "0.0.2",
     "hubot-pugme": "^0.1.0",
-    "hubot-redis-brain": "0.0.2",
+    "hubot-redis-brain": "0.0.3",
     "hubot-rules": "^0.1.0",
     "hubot-scripts": "^2.5.16",
-    "hubot-shipit": "^0.1.1",
-    "hubot-youtube": "^0.1.2",
+    "hubot-shipit": "0.2.0",
+    "hubot-youtube": "1.0.2",
     "lodash": "^4.7.0",
     "moment": "^2.9.0",
-    "moment-timezone": "^0.3.0"
-  },
-  "engines": {
-    "node": "6"
+    "moment-timezone": "0.5.5"
   }
 }
