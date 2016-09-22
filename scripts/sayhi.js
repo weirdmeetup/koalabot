@@ -1,5 +1,5 @@
-prefix = ":koala:"
-responses = [
+let prefix = ":koala:";
+let responses = [
   '안녕하세요?',
   '아녕하세여',
   '후훗 하이',
@@ -29,10 +29,12 @@ responses = [
   "@weirdbot youtube me 안녕하세요",
   "지금 몇시죠?",
   "ㅋㅋ하이",
-]
+];
 
-module.exports = (robot) ->
-  robot.respond /(안녕|하이|헬로|hi|hello|hey)/i, (msg) ->
-    responses.sort ->
-      .5 - Math.random()
-    msg.send "#{prefix} #{responses[0]}"
+module.exports = function(robot) {
+  return robot.respond(/(안녕|하이|헬로|hi|hello|hey)/i, function(msg) {
+    responses.sort(() => .5 - Math.random());
+    return msg.send(`${prefix} ${responses[0]}`);
+  }
+  );
+};
