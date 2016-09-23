@@ -22,7 +22,7 @@ module.exports = function(robot) {
 };
 
 var isUp = (msg, domain, cb) =>
-  msg.http(`http://isitup.org/${domain}.json`)
+  msg.http(`https://isitup.org/${domain}.json`)
     .header('User-Agent', 'Hubot')
     .get()(function(err, res, body) {
       let response = JSON.parse(body);
