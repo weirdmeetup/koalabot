@@ -20,7 +20,7 @@ let todayFreeEbook = msg => {
         $ = cheerio.load(body);
         title = $('.dotd-title').text();
         title = title.replace(/\n|\t/g, '');
-        msg.send("오늘의 무료책! <#{title}> https://www.packtpub.com/packt/offers/free-learning");
+        msg.send(`오늘의 무료책! <${title}> https://www.packtpub.com/packt/offers/free-learning`);
       });
 };
 
