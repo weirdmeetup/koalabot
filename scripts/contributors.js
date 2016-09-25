@@ -1,3 +1,9 @@
+// Description:
+//   기여자 목록을 가져옵니다.
+//
+// Commands:
+//   hubot contributors|기여자|만든 사람
+
 let { env } = process;
 let repo = env.CONTRIBUTORS_REPOSITORY || 'weirdmeetup/koalabot';
 let uri = `https://api.github.com/repos/${repo}/stats/contributors`;
