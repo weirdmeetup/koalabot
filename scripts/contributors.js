@@ -14,7 +14,6 @@ let lookup = (msg, cb) =>
       body = JSON.parse(body);
     } catch (error) {
       err = "🐨 정보를 가져오는데 오류가 발생했습니다. 잠시 후에 다시 시도해보세요.";
-      return cb(msg, null, err);
     }
     return cb(msg, body, err);
   })
@@ -31,7 +30,6 @@ let print = function(msg, content, err) {
 module.exports = function(robot) {
 
   return robot.respond(/(.*)\s(contributors|기여자|만든 사람)/i, function(msg) {
-    let location = msg.match[1];
     return lookup(msg, print);
   }
   );
