@@ -1,3 +1,9 @@
+// Description:
+//   인사를 돌려줍니다.
+//
+// Commands:
+//   hubot 안녕|하이|헬로|hi|hello|hey
+
 let prefix = ":koala:";
 let responses = [
   '안녕하세요?',

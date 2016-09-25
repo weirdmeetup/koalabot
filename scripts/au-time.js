@@ -1,10 +1,8 @@
 // Description:
-//   Australised hubot methods
+//   호주 시간을 알려드립니다.
 //
 // Commands:
 //   hubot 시간|time - 호주 시간을 알려 드립니다.
-//   hubot image me <query> - 이게 뭔가요.
-//   hubot animate me <query> - 이건 또 뭔가요.
 
 const moment = require('moment-timezone');
 let prefix = ":koala:";
@@ -30,12 +28,6 @@ let get_time = function(timestring, lang) {
   }
 };
 
-let no_function = function(msg) {
-  msg.send(`${prefix} 저는 그런 기능 없는데요...`);
-  let message = msg.message.text.substr(msg.message.text.indexOf(" ") + 1); 
-  return msg.send(`@weirdbot ${message}`);
-};
-
 let au_time = function(msg, lang) {
   let time = (timezones.map((timezone) => get_time(timezone, lang)));
   if (lang === "en") {
@@ -47,12 +39,6 @@ let au_time = function(msg, lang) {
 };
 
 module.exports = function(robot) {
-  robot.respond(/(image|img)( me)? (.*)/i, msg => no_function(msg)
-  );
-
-  robot.respond(/animate( me)? (.*)/i, msg => no_function(msg)
-  );
-
   robot.respond(/TIME/i, msg => au_time(msg, "en")
   );
 

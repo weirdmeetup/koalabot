@@ -1,3 +1,9 @@
+// Description:
+//   퀴즈를 받습니다.
+//
+// Commands:
+//   hubot 퀴즈
+
 const _ = require('lodash');
 const async = require('async');
 const GoogleSpreadsheet = require('google-spreadsheet');
