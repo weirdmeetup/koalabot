@@ -38,9 +38,8 @@ let responses = [
 ];
 
 module.exports = function(robot) {
-  return robot.respond(/(안녕|하이|헬로|hi|hello|hey)/i, function(msg) {
-    responses.sort(() => .5 - Math.random());
-    return msg.send(`${prefix} ${responses[0]}`);
-  }
-  );
+  robot.respond(/안녕|하이|헬로|hi|hello|hey/i, function(msg) {
+    let response = responses.sort(() => .5 - Math.random())[0];
+    msg.send(`${prefix} ${response}`);
+  });
 };
