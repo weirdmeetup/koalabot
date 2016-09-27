@@ -1,1 +1,1 @@
-web: bin/hubot -a irc -n koalabot
+web: bin/hubot --adapter slack --name koalabot
