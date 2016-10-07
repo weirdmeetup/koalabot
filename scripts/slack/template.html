@@ -31,7 +31,7 @@ button {
   <p><%= message %></p>
   <% if (typeof(is_form) !== "undefined") { %>
   <form method="post">
-    <input name="email" id="email" type="text" placeholder="이메일 주소를 입력해주세요">
+    <input name="email" id="email" type="email" placeholder="이메일 주소를 입력해주세요" required>
     <button type="submit">슬랙 초대장 받기</button>
   </form>
   <script>document.getElementById('email').focus()</script>

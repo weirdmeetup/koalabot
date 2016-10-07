@@ -10,7 +10,7 @@ let templateHtml = require('fs').readFileSync(`${__dirname}/slack/template.html`
 let render = _.template(templateHtml);
 
 var  message = {
-  'invited': '초대장이 발송되었습니다. 이메일을 확인해주세요.',
+  'invited': '초대장이 발송되었습니다. 이메일을 확인해주세요. <a href="https://weirdmeetup.slack.com">이상한모임 슬랙 바로가기</a>',
   'already_in_team' : '이미 팀에 가입되어 있는 이메일입니다. <a href="https://weirdmeetup.slack.com/forgot" target="_blank">비밀번호 찾기</a> <a href="/">다른 주소로 가입하기</a>',
   'already_invited' : '이미 초대장이 발송된 이메일입니다. 스팸 메일함도 확인해보시고 그래도 없다면 다른 이메일을 사용해보세요. <a href="/">다른 주소로 입력하기</a>',
   'error': '오류가 발생했습니다. 다시 신청해주세요. <a href="/">이메일 다시 입력하기</a>'
