@@ -4,37 +4,141 @@
 <meta charset="utf-8">
 <title>🐨 이상한모임 슬랙 가입하기</title>
 <style>
+html,
 body {
-  margin: 20px;
+  margin: 0;
+  padding: 0;
+}
+.event-hero {
+  background: #4d6a71 url('https://s3.ap-northeast-2.amazonaws.com/emoconfs3bucket/slack-invite.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
-input, button {
-  -webkit-appearance: none;
-  font-size: 13px;
-  line-height: 1.5;
-  padding: 5px;
-  border: 1px solid;
-}
-
-input {
-  border-color: #ddd;
-}
-
-button {
-  background: #0eb570;
-  border-color: #0eb570;
+.event-content-wrapper {
   color: #fff;
+  text-align: center;
+  background: rgba(77, 106, 113, 0.59);
+  min-height: 600px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.event-content {
+  max-width: 840px;
+  text-align: center;
+}
+
+.event-title {
+  font-size: 30px;
+  letter-spacing: -0.05em;
+  margin-bottom: 35px;
+  font-weight: 100;
+}
+
+.event-description p {
+  font-size: 50px;
+  letter-spacing: -0.05em;
+  margin: 0;
+  margin-bottom: 80px;
+}
+
+.event-logo {
+  max-width: 203px;
+  width: 100%;
+}
+.download-icon {
+  width: 36px;
+  vertical-align: middle;
+}
+@media screen and (max-width: 800px) {
+  .event-title { font-size: 26px; }
+  .event-description { margin-bottom: 50px; }
+  .event-content-wrapper {
+    height: auto;
+    padding: 20px;
+  }
+}
+
+.button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  display: inline-block;
+  padding: 0.8em 5em;
+  color: #000;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  background: #fff;
+  color: #000;
+  font-size: 16px;
+  padding: 0.5em;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.button,
+.button:hover,
+.button:active {
+  color: #000;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #ffffff;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #ffffff;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #ffffff;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #ffffff;
+}
+
+#email {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0);
+  color: #fff;
+  font-size: 16px;
+  padding: 0.5em;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+#email:focus {
+  background: rgba(255, 255, 255, 0.8);
+  color: #000;
+}
+
+.button {
+  margin-top: 20px;
 }
 </style>
 </head>
 <body>
-  <p><%= message %></p>
-  <% if (typeof(is_form) !== "undefined") { %>
-  <form method="post">
-    <input name="email" id="email" type="email" placeholder="이메일 주소를 입력해주세요" required>
-    <button type="submit">슬랙 초대장 받기</button>
-  </form>
-  <script>document.getElementById('email').focus()</script>
-  <% } %>
+  <div class="event-hero">
+    <div class="event-content-wrapper">
+      <div class="event-content">
+        <h1><img class="event-logo" src="https://s3.ap-northeast-2.amazonaws.com/emoconfs3bucket/emobi%402x.png" alt="이상한모임"></h1>
+        <div class="event-title"><p>개발자끼리 모이면 재밌어?</p></div>
+        <div class="event-description"><p>짜릿해 늘 새로워 이상한모임이 최고야</p></div>
+        <div class="event-message"><p><%= message %></p></div>
+
+        <% if (typeof(is_form) !== "undefined") { %>
+        <form method="post">
+          <input name="email" id="email" type="email" placeholder="Email Address" required>
+          <div><button class="button" type="submit">심호흡하고 가입하기</button></div>
+        </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
