@@ -51,7 +51,7 @@ let invite = robot => {
 
 let view = (req, res) => {
   res.send(render({
-    message: '이상한모임 슬랙 가입하기',
+    message: '아래 이메일을 입력하세요. 초대장을 보내드립니다.',
     is_form: true
   }));
 };
