@@ -81,7 +81,7 @@ let addLog = function(place, ip, username, type) {
       type,
       created: `=U2Gtime(${timestamp})`
     }, function(err) {
-      
+
     }
     );
   }
@@ -96,7 +96,7 @@ let addPlace = function(ip, name, username, token, timestamp) {
       last_updated: `=U2Gtime(${timestamp})`,
       username
     }, function(err) {
-      
+
     }
     );
   }
@@ -199,33 +199,18 @@ let firstTimeCommute = function(req, res) {
   }
 };
 
-let commuteConfirm = type =>
+let commuteConfirm = (robot, type) =>
   function(msg) {
     let token = generateToken();
     queue[token] = {msg, type};
     let message = `🐨 ${type}근 도장을 찍으세요. ${COMMUTE_URI}${token}`;
-    if (msg.sendPrivate) {
-
-      let envelope_room = msg.envelope.room;
-      let user_room = msg.envelope.user.room;
-
-      queue[token].envelope_room = envelope_room;
-      queue[token].user_room = user_room;
-
-      msg.sendPrivate(message);
-    } else {
-      msg.send(message);
-    }
+    let username = msg.envelope.user.name;
+    robot.messageRoom(`@${username}`, message);
     return setTimeout(function() {
       if (queue[token]) {
         delete queue[token];
         let timeover = `🐨 ${msg.message.user.name}님 도장 찍기 제한 시간을 초과했습니다.`;
-
-        if (msg.sendPrivate) {
-          return msg.sendPrivate(timeover);
-        } else {
-          return msg.send(timeover);
-        }
+        return robot.messageRoom(`@${username}`, timeover);
       }
     }
     , 3 * 30 * 1000);
@@ -238,8 +223,8 @@ module.exports = function(robot) {
     robot.router.get('/commute/first/:token', firstTimeCommute);
     robot.router.post('/commute/first/:token', firstTimeCommute);
     robot.router.get('/commute/:token', commute);
-    robot.respond(/출근/i, commuteConfirm('출'));
-    return robot.respond(/퇴근/i, commuteConfirm('퇴'));
+    robot.respond(/출근/i, commuteConfirm(robot, '출'));
+    return robot.respond(/퇴근/i, commuteConfirm(robot, '퇴'));
   }
   , function(err) {
     robot.logger.error(err);
