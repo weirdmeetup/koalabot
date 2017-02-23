@@ -7,11 +7,12 @@
 var request = require('request');
 
 let search = (query, cb) =>{
+  let new_query = query.replace(/ /g, "+");
   var regEn = /^[A-Za-z0-9+]*$/;
-  if (!regEn.test(query)){
-    return cb('🐨  영어 한단어로만 검색이 되영 죄송하빈다....', null);
+  if (!regEn.test(new_query)){
+    return cb('🐨  영어로만 검색이 되영 죄송하빈다....', null);
   };
-  let baseurl = `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=dc6zaTOxFJmzC&limit=100&offset=0`
+  let baseurl = `http://api.giphy.com/v1/gifs/search?q=${new_query}&api_key=dc6zaTOxFJmzC&limit=100&offset=0`
   request.get({
     url: baseurl
   }, function (err, res, json) {
