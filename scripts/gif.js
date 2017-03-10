@@ -12,7 +12,7 @@ let search = (query, cb) =>{
   if (!regEn.test(new_query)){
     return cb('🐨  영어로만 검색이 되영 죄송하빈다....', null);
   };
-  let baseurl = `http://api.giphy.com/v1/gifs/search?q=${new_query}&api_key=dc6zaTOxFJmzC&limit=100&offset=0`
+  let baseurl = `http://api.giphy.com/v1/gifs/search?q=${new_query}&api_key=dc6zaTOxFJmzC&limit=100&offset=0&rating=pg-13`
   request.get({
     url: baseurl
   }, function (err, res, json) {
