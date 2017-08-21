@@ -1,42 +1,34 @@
-// Description:
-//   search gif
-//
-// Commands:
-//   hubot gif <query only english>
-
 var request = require('request');
 
-let search = (query, cb) =>{
-  let newQuery = query.replace(/ /g, "+");
-  var regEn = /^[A-Za-z0-9+]*$/;
-  if (!regEn.test(newQuery)){
-    return cb('🐨  영어로만 검색이 되영 죄송하빈다....', null);
-  };
-  let baseurl = `http://api.giphy.com/v1/gifs/search?q=${newQuery}&api_key=dc6zaTOxFJmzC&limit=100&offset=0&rating=pg-13`
-  request.get({
-    url: baseurl
-  }, function (err, res, json) {
-    if (err){
-      return cb(err, null);
-    }
-    let result = JSON.parse(json);
-    let randomPick = Math.floor(Math.random() * result.data.length);
-    if(result.data.length === 0){
-      return cb('🐨  검색결과가 없어여....', null);
-    }
-    let gifUrl = result.data[randomPick].images.fixed_height.url
-    return cb(null, gifUrl);
-  });
+const search = (query, cb)=>{
+    let url = "http://www.google.com/search?q=" + encodeURIComponent(query) + "&tbm=isch&source=lnt&tbs=itp:animated&sa=X";
+    request.get({
+        url:url,
+        headers:{
+            'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36'
+        }
+    }, (err,resp,res)=>{
+        if (err) return cb(err, null);
+
+        let reg = /"([^"]+\.gif)"/gi;
+        let first = reg.exec(res);
+        let result = reg.exec(res);
+        if( result === null ){
+            return cb('결과를 못찾겠네여...', null);
+        }
+        return cb(null, result[1]);
+    });
 };
 
-module.exports = function(robot) {
-  return robot.respond(/gif (.*)/i, function(msg) {
-    let query = msg.match[1];
-    search(query, (err, result)=>{
-      if(err){
-        return msg.send(err);
-      }
-      return msg.send(result);
-    });
-  }
-)};
+module.exports = function(robot){
+    return robot.respond(/gif (.*)/i, function(msg){
+        let query = msg.match[1];
+        search(query, (err, result)=>{
+            if( err ){
+                return msg.send(err);
+            }else{
+                return msg.send(result);
+            }
+        });
+    })
+}
