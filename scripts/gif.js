@@ -1,7 +1,7 @@
 var request = require('request');
 
 const search = (query, cb)=>{
-    let url = "http://www.google.com/search?q=" + encodeURIComponent(query) + "&tbm=isch&source=lnt&tbs=itp:animated&sa=X";
+    const url = "http://www.google.com/search?q=" + encodeURIComponent(query) + "&tbm=isch&source=lnt&tbs=itp:animated&sa=X&safe=active";
     request.get({
         url:url,
         headers:{
@@ -10,13 +10,13 @@ const search = (query, cb)=>{
     }, (err,resp,res)=>{
         if (err) return cb(err, null);
 
-        let reg = /"([^"]+\.gif)"/gi;
-        let first = reg.exec(res);
-        let result = reg.exec(res);
-        if( result === null ){
+        const reg = /(http[^"]+\.gif)/gi;
+        const resultSet = res.match(reg);
+        
+        if( !resultSet || resultSet.length === 0 ){
             return cb('결과를 못찾겠네여...', null);
         }
-        return cb(null, result[1]);
+        return cb(null, resultSet[(Math.random()*resultSet.length)|0]);
     });
 };
 
