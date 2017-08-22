@@ -1,7 +1,11 @@
 var request = require('request');
 
 const search = (query, cb)=>{
-    const url = "http://www.google.com/search?q=" + encodeURIComponent(query) + "&tbm=isch&source=lnt&tbs=itp:animated&sa=X&safe=active";
+    const bannedSite = ['-site:ilbe.com', '-site:naver.com', '-site:instiz.net'];
+    const fileOption = 'define:gif';
+    const searchString = query + ' ' +  bannedSite.join(' ') + ' ' + fileOption;
+    const url = 'http://www.google.com/search?q=' + encodeURIComponent(searchString) + '&tbm=isch&source=lnt&tbs=itp:animated&sa=X&safe=active';
+
     request.get({
         url:url,
         headers:{
