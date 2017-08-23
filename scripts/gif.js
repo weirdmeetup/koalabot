@@ -20,7 +20,12 @@ const search = (query, cb)=>{
         if( !resultSet || resultSet.length === 0 ){
             return cb('결과를 못찾겠네여...', null);
         }
-        return cb(null, resultSet[(Math.random()*resultSet.length)|0].replace(/"/g, ''));
+        const unicodeLiteral = /\\u([\d\w]{4})/gi;
+        return cb(null, 
+                  resultSet[(Math.random()*resultSet.length)|0]
+                    .replace(/"/g, '')
+                    .replace(unicodeLiteral, (m, g)=>{ return String.fromCharCode(parseInt(g,16)); })
+        );
     });
 };
 
