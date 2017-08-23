@@ -1,6 +1,7 @@
 var request = require('request');
 
 const search = (query, cb)=>{
+
     const bannedSite = ['-site:ilbe.com', '-site:instiz.net'];
     const url = "http://www.google.com/search?q="
         + encodeURIComponent(query + ' ' + bannedSite.join(' ')) 
