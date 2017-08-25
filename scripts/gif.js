@@ -15,11 +15,13 @@ const search = (query, cb)=>{
         if (err) return cb(err, null);
 
         const reg = /"(http[^"]+\.gif[^"]+)"/gi;
-        const resultSet = res.match(reg);
+        let resultSet = res.match(reg);
         
         if( !resultSet || resultSet.length === 0 ){
             return cb('결과를 못찾겠네여...', null);
         }
+        const banReg = /postfiles[0-9]+\.naver\.net/;
+        resultSet = resultSet.filter( v => !banReg.test(v) );
         const unicodeLiteral = /\\u([\d\w]{4})/gi;
         return cb(null, 
                   resultSet[(Math.random()*resultSet.length)|0]
