@@ -125,19 +125,19 @@ module.exports = function(robot) {
   }
   );
 
-  robot.respond(/(.*)\s(날씨|기상|기온)/i, function(msg) {
+  robot.respond(/(날씨|기상|기온)\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return lookupAddress(msg, location, lookupWeather);
   }
   );
 
-  robot.respond(/(.*)\s(어디|위치)/i, function(msg) {
+  robot.respond(/(어디|위치)\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return lookupAddress(msg, location, lookupLocation);
   }
   );
 
-  return robot.respond(/(.*)\s(일기|일기예보|기상청|비올듯|눈올듯)/i, function(msg) {
+  return robot.respond(/(일기|일기예보|기상청|비올듯|눈올듯)\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return lookupAddress(msg, location, lookupForecast);
   }
