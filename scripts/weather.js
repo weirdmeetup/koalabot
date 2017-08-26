@@ -15,23 +15,9 @@
 let { env } = process;
 
 let forecastIoUrl = `https://api.forecast.io/forecast/${process.env.HUBOT_FORECAST_API_KEY}/`;
-let googleMapUrl = 'http://maps.googleapis.com/maps/api/geocode/json';
 
-let lookupAddress = function(msg, location, cb) {
-  if (location === ["멜번", "멜버른"]) { location = "Melbourne"; }
-  if (location === "시드니" || location === "싯니") { location = "Sydney"; }
-  return msg.http(googleMapUrl).query({address: location, sensor: true})
-    .get()(function(err, res, body) {
-      try {
-        body = JSON.parse(body);
-        var coords = body.results[0].geometry.location;
-      } catch (err) {
-        err = `🐨 ${location}... 어딘지 모르겠어요.`;
-        return cb(msg, null, null, err);
-      }
-      return cb(msg, location, coords, err);
-  });
-};
+const location = require('./location');
+let getLocation = new location().getLocation;
 
 let lookupWeather = function(msg, location, coords, err) {
   if (err) { return msg.send(err); }
@@ -109,37 +95,37 @@ module.exports = function(robot) {
 
   robot.respond(/weather(?: me|for|in)?\s(.*)/i, function(msg) {
     let location = msg.match[1];
-    return lookupAddress(msg, location, lookupWeather);
+    return getLocation(msg, location, true, lookupWeather);
   }
   );
 
   robot.respond(/where(?: me|for|in)?\s(.*)/i, function(msg) {
     let location = msg.match[1];
-    return lookupAddress(msg, location, lookupLocation);
+    return getLocation(msg, location, true, lookupLocation);
   }
   );
 
   robot.respond(/forecast(?: me|for|in)?\s(.*)/i, function(msg) {
     let location = msg.match[1];
-    return lookupAddress(msg, location, lookupForecast);
+    return getLocation(msg, location, true, lookupForecast);
   }
   );
 
-  robot.respond(/(.*)\s(날씨|기상|기온)/i, function(msg) {
+  robot.respond(/(날씨|기상|기온)\s(.*)/i, function(msg) {
     let location = msg.match[1];
-    return lookupAddress(msg, location, lookupWeather);
+    return getLocation(msg, location, true, lookupWeather);
   }
   );
 
-  robot.respond(/(.*)\s(어디|위치)/i, function(msg) {
+  robot.respond(/(어디|위치)\s(.*)/i, function(msg) {
     let location = msg.match[1];
-    return lookupAddress(msg, location, lookupLocation);
+    return getLocation(msg, location, true, lookupLocation);
   }
   );
 
-  return robot.respond(/(.*)\s(일기|일기예보|기상청|비올듯|눈올듯)/i, function(msg) {
+  return robot.respond(/(일기|일기예보|기상청|비올듯|눈올듯)\s(.*)/i, function(msg) {
     let location = msg.match[1];
-    return lookupAddress(msg, location, lookupForecast);
+    return getLocation(msg, location, true, lookupForecast);
   }
   );
 };

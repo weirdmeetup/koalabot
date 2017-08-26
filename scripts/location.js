@@ -10,8 +10,13 @@ module.exports = function () {
    * @param cb callback function to be invoked with params:
    *          hubot msg object, location string, {lat, long} object, error
    */
-  this.getLocation = function(msg, location, cb) {
-    return msg.http(googleMapUrl).query({address: location})
+  this.getLocation = function(msg, location, sensor, cb) {
+    if (location === ["멜번", "멜버른"]) { location = "Melbourne"; }
+    if (location === "시드니" || location === "싯니") { location = "Sydney"; }
+    const query = {address: location}
+    if (sensor) { query.sensor = true }
+
+    return msg.http(googleMapUrl).query()
       .get()((err, res, body) => {
         try {
           body = JSON.parse(body);

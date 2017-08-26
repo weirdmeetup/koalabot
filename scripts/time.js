@@ -36,7 +36,7 @@ let lookupTime = function(msg, location, coords, err) {
 };
 
 module.exports = function(robot) {
-  robot.respond(/(.*)\s(time|시간)/i, function (msg) {
-    return getLocation(msg, msg.match[1], lookupTime);
+  robot.respond(/(time|시간)\s(.*)/i, function (msg) {
+    return getLocation(msg, msg.match[1], false, lookupTime);
   });
 };
