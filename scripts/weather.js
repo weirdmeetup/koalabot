@@ -93,37 +93,37 @@ var getTemp = function(c) {
 
 module.exports = function(robot) {
 
-  robot.respond(/weather(?: me|for|in)?\s(.*)/i, function(msg) {
+  robot.respond(/weather(?: me| for| in)?\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return getLocation(msg, location, true, lookupWeather);
   }
   );
 
-  robot.respond(/where(?: me|for|in)?\s(.*)/i, function(msg) {
+  robot.respond(/where(?: me| for| in)?\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return getLocation(msg, location, true, lookupLocation);
   }
   );
 
-  robot.respond(/forecast(?: me|for|in)?\s(.*)/i, function(msg) {
+  robot.respond(/forecast(?: me| for| in)?\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return getLocation(msg, location, true, lookupForecast);
   }
   );
 
-  robot.respond(/(날씨|기상|기온)\s(.*)/i, function(msg) {
+  robot.respond(/(?:날씨|기상|기온)\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return getLocation(msg, location, true, lookupWeather);
   }
   );
 
-  robot.respond(/(어디|위치)\s(.*)/i, function(msg) {
+  robot.respond(/(?:어디|위치)\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return getLocation(msg, location, true, lookupLocation);
   }
   );
 
-  return robot.respond(/(일기|일기예보|기상청|비올듯|눈올듯)\s(.*)/i, function(msg) {
+  return robot.respond(/(?:일기|일기예보|기상청|비올듯|눈올듯)\s(.*)/i, function(msg) {
     let location = msg.match[1];
     return getLocation(msg, location, true, lookupForecast);
   }
