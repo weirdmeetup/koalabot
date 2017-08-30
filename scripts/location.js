@@ -16,7 +16,7 @@ module.exports = function () {
     const query = {address: location}
     if (sensor) { query.sensor = true }
 
-    return msg.http(googleMapUrl).query()
+    return msg.http(googleMapUrl).query(query)
       .get()((err, res, body) => {
         try {
           body = JSON.parse(body);
