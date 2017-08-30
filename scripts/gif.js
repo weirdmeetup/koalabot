@@ -14,7 +14,7 @@ const search = (query, cb)=>{
     if (err) return cb(err, null);
 
     const reg = /"(http[^"]+\.gif[^"]+)"/gi;
-    const resultSet = res.match(reg);
+    let resultSet = res.match(reg);
 
 
         if( !resultSet || resultSet.length === 0 ){

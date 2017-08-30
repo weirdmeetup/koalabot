@@ -39,15 +39,15 @@ let au_time = function(msg, lang) {
 };
 
 module.exports = function(robot) {
-  robot.respond(/(autime|AUTIME)/i, msg => au_time(msg, "en")
+  robot.respond(/(?:autime|AUTIME)/i, msg => au_time(msg, "en")
   );
 
-  robot.respond(/(호주시간|호주시각)/i, msg => au_time(msg, "ko")
+  robot.respond(/(?:호주시간|호주시각)/i, msg => au_time(msg, "ko")
   );
 
-  robot.hear(/(australia|oz|au|koala|kangaroo|melbourne|sydney)( )?time/i, msg => au_time(msg, "en")
+  robot.hear(/(?:australia|oz|au|koala|kangaroo|melbourne|sydney) ?time/i, msg => au_time(msg, "en")
   );
 
-  return robot.hear(/(멜버른|멜번|시드니|호바트|캔버라|아들레이드|브리즈번|블번|다윈|퍼스|호주)( )?(시간|시각)/i, msg => au_time(msg, "ko")
+  return robot.hear(/(?:멜버른|멜번|시드니|호바트|캔버라|아들레이드|브리즈번|블번|다윈|퍼스|호주) ?(?:시간|시각)/i, msg => au_time(msg, "ko")
   );
 };

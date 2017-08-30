@@ -29,7 +29,7 @@ let print = function(msg, content, err) {
 
 module.exports = function(robot) {
 
-  return robot.respond(/(.*)\s(contributors|기여자|만든 사람)/i, function(msg) {
+  return robot.respond(/contributors|기여자|만든 사람/i, function(msg) {
     return lookup(msg, print);
   }
   );
