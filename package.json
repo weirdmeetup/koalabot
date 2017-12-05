@@ -8,8 +8,12 @@
     "node": "6"
   },
   "scripts": {
-    "test": "mocha test --compilers coffee:coffee-script/register -u tdd"
+    "test": "mocha test --compilers coffee:coffee-script/register -u tdd",
+    "standard": "standard"
   },
+  "pre-commit": [
+    "standard"
+  ],
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "cheerio": "^0.22.0",
