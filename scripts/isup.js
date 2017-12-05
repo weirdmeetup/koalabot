@@ -13,27 +13,26 @@
 // Author:
 //   jmhobbs
 
-module.exports = function(robot) {
-  return robot.respond(/is (?:http\:\/\/)?(.*?) (up|down)(\?)?/i, msg =>
-    isUp(msg, msg.match[1], domain => msg.send(domain)
-    )
-  
-  );
-};
+module.exports = function (robot) {
+  return robot.respond(/is (?:http:\/\/)?(.*?) (up|down)(\?)?/i, msg =>
+    isUp(msg, msg.match[1])
+  )
+}
 
-var isUp = (msg, domain, cb) =>
+const isUp = (msg, domain) =>
   msg.http(`https://isitup.org/${domain}.json`)
     .header('User-Agent', 'Hubot')
-    .get()(function(err, res, body) {
-      let response = JSON.parse(body);
+    .get()(function (err, res, body) {
+      if (err) { return }
+
+      const response = JSON.parse(body)
       if (response.status_code === 1) {
-        return cb(`${response.domain} looks UP from here.`);
+        return msg.send(`${response.domain} looks UP from here.`)
       } else if (response.status_code === 2) {
-        return cb(`${response.domain} looks DOWN from here.`);
+        return msg.send(`${response.domain} looks DOWN from here.`)
       } else if (response.status_code === 3) {
-        return cb(`Are you sure '${response.domain}' is a valid domain?`);
+        return msg.send(`Are you sure '${response.domain}' is a valid domain?`)
       } else {
-        return msg.send(`Not sure, ${response.domain} returned an error.`);
+        return msg.send(`Not sure, ${response.domain} returned an error.`)
       }
-  })
-;
+    })

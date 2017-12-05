@@ -4,7 +4,7 @@
 // Commands:
 //   hubot 안녕|하이|헬로|hi|hello|hey
 
-let prefix = ":koala:";
+let prefix = ':koala:'
 let responses = [
   '안녕하세요?',
   '아녕하세여',
@@ -29,17 +29,17 @@ let responses = [
   'bro',
   '코알라는 참을성이 없습니다',
   "'undefined' is not a function",
-  "exception raised: unhandled page fault on read access to 0x00000000 at address 0x100d84ba. do you wish to debug it?",
-  "@weirdbot image me 안녕하세요",
-  "@weirdbot animate me 안녕하세요",
-  "@weirdbot youtube me 안녕하세요",
-  "지금 몇시죠?",
-  "ㅋㅋ하이",
-];
+  'exception raised: unhandled page fault on read access to 0x00000000 at address 0x100d84ba. do you wish to debug it?',
+  '@weirdbot image me 안녕하세요',
+  '@weirdbot animate me 안녕하세요',
+  '@weirdbot youtube me 안녕하세요',
+  '지금 몇시죠?',
+  'ㅋㅋ하이'
+]
 
-module.exports = function(robot) {
-  robot.respond(/안녕|하이|헬로|hi|hello|hey/i, function(msg) {
-    let response = responses.sort(() => .5 - Math.random())[0];
-    msg.send(`${prefix} ${response}`);
-  });
-};
+module.exports = function (robot) {
+  robot.respond(/안녕|하이|헬로|hi|hello|hey/i, function (msg) {
+    let response = responses.sort(() => 0.5 - Math.random())[0]
+    msg.send(`${prefix} ${response}`)
+  })
+}

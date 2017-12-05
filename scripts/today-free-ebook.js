@@ -11,20 +11,22 @@
 // Author:
 //    AWEEKJ(a.k.a. MODO)
 
-const cheerio = require('cheerio');
+const cheerio = require('cheerio')
 
-let todayFreeEbook = msg => {
-    targetUrl = "https://www.packtpub.com/packt/offers/free-learning";
-    msg.http(targetUrl)
-      .get()((err, res, body) => {
-        $ = cheerio.load(body);
-        title = $('.dotd-title').text();
-        title = title.replace(/\n|\t/g, '');
-        msg.send(`오늘의 무료책! <${title}> https://www.packtpub.com/packt/offers/free-learning`);
-      });
-};
+const todayFreeEbook = msg => {
+  const targetUrl = 'https://www.packtpub.com/packt/offers/free-learning'
+  msg.http(targetUrl).get()((err, res, body) => {
+    if (err) {
+      msg.send('잠시 뒤에 다시 시도해주세요.')
+    } else {
+      const $ = cheerio.load(body)
+      let title = $('.dotd-title').text()
+      title = title.replace(/\n|\t/g, '')
+      msg.send(`오늘의 무료책! <${title}> https://www.packtpub.com/packt/offers/free-learning`)
+    }
+  })
+}
 
-module.exports = function(robot) {
-  robot.hear(/오늘의무료책!|무료책!$/i, todayFreeEbook);
-};
-
+module.exports = function (robot) {
+  robot.hear(/오늘의무료책!|무료책!$/i, todayFreeEbook)
+}
