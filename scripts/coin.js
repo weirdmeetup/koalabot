@@ -1,3 +1,9 @@
+// Description:
+//   코인 시세를 알려드립니다.
+//
+// Commands:
+//   hubot coin [bitcoin, ethereum, ripple, bitcoincash]
+
 var request = require('request');
 
 const getPrice = (coinType, cb)=>{
