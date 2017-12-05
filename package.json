@@ -37,6 +37,7 @@
     "chai": "^3.5.0",
     "hubot-test-helper": "^1.5.0",
     "mocha": "^3.0.2",
+    "pre-commit": "^1.2.2",
     "sinon": "^1.17.6",
     "standard": "^10.0.3"
   }
